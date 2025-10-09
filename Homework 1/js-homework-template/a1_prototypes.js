@@ -16,6 +16,24 @@ function runA1() {
         this.height = height;
     }
 
+    function Line(width){
+        Shape.call(this);
+        this.width = width;
+    }
+
+
+
+    Line.prototype = Object.create(Shape.prototype);
+    Line.prototype.constructor = Line;
+
+    Line.prototype.getArea = function(){
+        return 0;
+    }
+
+    Line.prototype.getlength = function(){
+        return this.width;
+    }
+
     // TODO(b): Prototype chain — link Rectangle.prototype -> Shape.prototype
     //          and restore Rectangle.prototype.constructor.
     Rectangle.prototype = Object.create(Shape.prototype);

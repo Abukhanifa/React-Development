@@ -1,0 +1,40 @@
+.movie-list {
+  margin: 24px auto;
+  max-width: 900px;
+  padding: 0 16px;
+}
+
+.movie-list__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.movie-list__button {
+  padding: 8px 14px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.movie-list__button:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.movie-list__error {
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.movie-list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+
+

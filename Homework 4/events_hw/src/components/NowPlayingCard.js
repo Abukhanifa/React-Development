@@ -15,7 +15,7 @@ function NowPlayingCard({ movie }) {
       <div className="now-playing-card__content">
         <h3 className="now-playing-card__title">{movie.title}</h3>
         <p className="now-playing-card__meta">Release: {movie.release_date || 'N/A'}</p>
-        <p className="now-playing-card__rating">Rating: {movie.vote_average ?? 'N/A'}</p>
+        <p className="now-playing-card__rating">Rating: {Math.round(movie.vote_average ?? 'N/A')}</p>
         <p className="now-playing-card__overview">{movie.overview}</p>
       </div>
     </li>

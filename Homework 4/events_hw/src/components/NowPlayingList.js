@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NowPlayingCard from './NowPlayingCard';
 import './NowPlayingList.css';
 
@@ -44,6 +44,10 @@ function NowPlayingList() {
     setSearchTerm('');
   };
 
+  useEffect(() => {
+    loadMovies();
+  }, []); 
+
   const filteredMovies = movies.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -51,9 +55,6 @@ function NowPlayingList() {
   return (
     <section className="now-playing-list">
       <div className="now-playing-list__controls">
-        <button className="now-playing-list__button" onClick={loadMovies} disabled={isLoading}>
-          {isLoading ? 'Loading…' : 'Load Now Playing Movies'}
-        </button>
         {error && <span className="now-playing-list__error">{error}</span>}
       </div>
       

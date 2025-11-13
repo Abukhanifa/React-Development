@@ -1,0 +1,132 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: float 20s infinite ease-in-out;
+}
+
+.login::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  animation: float 15s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+  }
+}
+
+.login__container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 60px 50px;
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  text-align: center;
+  max-width: 550px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login__icon {
+  font-size: 80px;
+  margin-bottom: 28px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.login__title {
+  font-size: 42px;
+  font-weight: 900;
+  margin: 0 0 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+}
+
+.login__message {
+  font-size: 22px;
+  font-weight: 700;
+  color: #667eea;
+  margin: 0 0 28px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 16px;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.login__info {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #6b7280;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .login__container {
+    padding: 40px 30px;
+  }
+
+  .login__title {
+    font-size: 32px;
+  }
+
+  .login__icon {
+    font-size: 60px;
+  }
+
+  .login__message {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
+

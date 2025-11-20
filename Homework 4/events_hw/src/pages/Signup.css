@@ -1,4 +1,4 @@
-.login {
+.signup {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.login::before {
+.signup::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -21,7 +21,7 @@
   animation: float 20s infinite ease-in-out;
 }
 
-.login::after {
+.signup::after {
   content: '';
   position: absolute;
   bottom: -40%;
@@ -42,7 +42,7 @@
   }
 }
 
-.login__container {
+.signup__container {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   padding: 60px 50px;
@@ -67,7 +67,7 @@
   }
 }
 
-.login__icon {
+.signup__icon {
   font-size: 80px;
   margin-bottom: 28px;
   animation: bounce 2s infinite;
@@ -82,7 +82,7 @@
   }
 }
 
-.login__title {
+.signup__title {
   font-size: 42px;
   font-weight: 900;
   margin: 0 0 20px;
@@ -93,17 +93,17 @@
   letter-spacing: -1px;
 }
 
-.login__form {
+.signup__form {
   width: 100%;
   margin-top: 30px;
 }
 
-.login__form-group {
+.signup__form-group {
   margin-bottom: 24px;
   text-align: left;
 }
 
-.login__label {
+.signup__label {
   display: block;
   font-size: 15px;
   font-weight: 600;
@@ -111,7 +111,7 @@
   margin-bottom: 8px;
 }
 
-.login__input {
+.signup__input {
   width: 100%;
   padding: 14px 18px;
   font-size: 16px;
@@ -122,17 +122,17 @@
   box-sizing: border-box;
 }
 
-.login__input:focus {
+.signup__input:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.login__input:disabled {
+.signup__input:disabled {
   background-color: #f3f4f6;
   cursor: not-allowed;
 }
 
-.login__button {
+.signup__button {
   width: 100%;
   padding: 16px;
   font-size: 17px;
@@ -147,21 +147,21 @@
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.login__button:hover:not(:disabled) {
+.signup__button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
-.login__button:active:not(:disabled) {
+.signup__button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.login__button:disabled {
+.signup__button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.login__error {
+.signup__error {
   background-color: #fee2e2;
   color: #dc2626;
   padding: 12px 16px;
@@ -172,37 +172,37 @@
   border: 1px solid #fecaca;
 }
 
-.login__info {
+.signup__info {
   font-size: 16px;
   line-height: 1.7;
   color: #6b7280;
   margin: 24px 0 0;
 }
 
-.login__link {
+.signup__link {
   color: #667eea;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
-.login__link:hover {
+.signup__link:hover {
   color: #764ba2;
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  .login__container {
+  .signup__container {
     padding: 40px 30px;
   }
 
-  .login__title {
+  .signup__title {
     font-size: 32px;
   }
 
-  .login__icon {
+  .signup__icon {
     font-size: 60px;
   }
-
 }
+
 

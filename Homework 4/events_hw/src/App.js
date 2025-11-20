@@ -6,6 +6,8 @@ import About from './pages/About';
 import MovieList from './pages/MovieList';
 import MovieDetails from './pages/MovieDetails';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="items" element={<MovieList />} />
           <Route path="items/:id" element={<MovieDetails />} />
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>

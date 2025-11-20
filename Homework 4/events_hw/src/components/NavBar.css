@@ -107,6 +107,47 @@
   opacity: 0;
 }
 
+.navbar__button {
+  display: block;
+  padding: 10px 20px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navbar__button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.navbar__button:hover {
+  color: white;
+  transform: translateY(-2px);
+}
+
+.navbar__button:hover::before {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .navbar__container {
     flex-direction: column;
@@ -123,6 +164,11 @@
   }
 
   .navbar__link {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .navbar__button {
     padding: 8px 16px;
     font-size: 14px;
   }

@@ -27,11 +27,38 @@ const fetchWithAuth = async (endpoint) => {
   return response.json();
 };
 
+const buildEndpoint = (path, params = {}) => {
+  const queryString = new URLSearchParams(params).toString();
+  return `${path}${queryString ? `?${queryString}` : ''}`;
+};
+
+const fetchMoviesPage = async (path, params = {}) => {
+  const endpoint = buildEndpoint(path, params);
+  const data = await fetchWithAuth(endpoint);
+  return {
+    results: Array.isArray(data.results) ? data.results : [],
+    total_pages: data.total_pages || 1,
+  };
+};
+
 export const moviesService = {
-  // Получить список фильмов в прокате
-  getNowPlaying: async () => {
-    const data = await fetchWithAuth('/movie/now_playing');
-    return Array.isArray(data.results) ? data.results : [];
+  // Получить один "page" фильмов в прокате
+  getNowPlaying: async (page = 1) => {
+    return await fetchMoviesPage('/movie/now_playing', { page });
+  },
+
+  // Поиск по TMDB
+  searchMovies: async (query, page = 1) => {
+    const trimmedQuery = (query || '').trim();
+    if (!trimmedQuery) {
+      return { results: [], total_pages: 1 };
+    }
+
+    return await fetchMoviesPage('/search/movie', {
+      query: trimmedQuery,
+      include_adult: false,
+      page,
+    });
   },
 
   // Получить фильм по ID

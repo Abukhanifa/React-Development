@@ -1,50 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import moviesService from '../services/moviesService';
 import Spinner from '../components/Spinner';
 import ErrorBox from '../components/ErrorBox';
+import { fetchItemById } from '../features/items/itemsSlice';
 import './MovieDetails.css';
 
 function MovieDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [movie, setMovie] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [notFound, setNotFound] = useState(false);
-
-  const loadMovie = async () => {
-    setIsLoading(true);
-    setError('');
-    setNotFound(false);
-    try {
-      const data = await moviesService.getById(id);
-      setMovie(data);
-    } catch (e) {
-      if (e.message.includes('404')) {
-        setNotFound(true);
-      } else {
-        setError(e.message || 'Неизвестная ошибка');
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const { selectedItem, loadingItem, errorItem } = useSelector((state) => state.items);
 
   useEffect(() => {
-    loadMovie();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    if (id) {
+      dispatch(fetchItemById(id));
+    }
+  }, [dispatch, id]);
 
   const handleBack = () => {
     navigate(-1);
   };
 
-  if (isLoading) {
+  if (loadingItem) {
     return <Spinner />;
   }
 
-  if (notFound) {
+  const isNotFound = errorItem?.includes('404');
+
+  if (isNotFound) {
     return (
       <div className="movie-details">
         <div className="movie-details__not-found">
@@ -58,16 +43,21 @@ function MovieDetails() {
     );
   }
 
-  if (error) {
-    return <ErrorBox message={error} onRetry={loadMovie} />;
+  if (errorItem) {
+    return (
+      <ErrorBox
+        message={errorItem}
+        onRetry={() => dispatch(fetchItemById(id))}
+      />
+    );
   }
 
-  if (!movie) {
+  if (!selectedItem) {
     return null;
   }
 
-  const backdropUrl = moviesService.getBackdropUrl(movie.backdrop_path);
-  const posterUrl = moviesService.getImageUrl(movie.poster_path, 'w500');
+  const backdropUrl = moviesService.getBackdropUrl(selectedItem.backdrop_path);
+  const posterUrl = moviesService.getImageUrl(selectedItem.poster_path, 'w500');
 
   return (
     <div className="movie-details">
@@ -77,7 +67,7 @@ function MovieDetails() {
 
       {backdropUrl && (
         <div className="movie-details__backdrop">
-          <img src={backdropUrl} alt={movie.title} />
+          <img src={backdropUrl} alt={selectedItem.title} />
           <div className="movie-details__backdrop-overlay"></div>
         </div>
       )}
@@ -87,74 +77,74 @@ function MovieDetails() {
           {posterUrl && (
             <img 
               src={posterUrl} 
-              alt={movie.title}
+              alt={selectedItem.title}
               className="movie-details__poster"
             />
           )}
 
           <div className="movie-details__info">
-            <h1 className="movie-details__title">{movie.title}</h1>
+            <h1 className="movie-details__title">{selectedItem.title}</h1>
             
-            {movie.tagline && (
-              <p className="movie-details__tagline">"{movie.tagline}"</p>
+            {selectedItem.tagline && (
+              <p className="movie-details__tagline">"{selectedItem.tagline}"</p>
             )}
 
             <div className="movie-details__meta">
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Рейтинг:</span>
                 <span className="movie-details__value">
-                  ⭐ {movie.vote_average ? movie.vote_average.toFixed(1) : 'Н/Д'} / 10
+                  ⭐ {selectedItem.vote_average ? selectedItem.vote_average.toFixed(1) : 'Н/Д'} / 10
                   <span className="movie-details__votes">
-                    ({movie.vote_count} голосов)
+                    ({selectedItem.vote_count} голосов)
                   </span>
                 </span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Дата релиза:</span>
-                <span className="movie-details__value">{movie.release_date || 'Н/Д'}</span>
+                <span className="movie-details__value">{selectedItem.release_date || 'Н/Д'}</span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Продолжительность:</span>
                 <span className="movie-details__value">
-                  {movie.runtime ? `${movie.runtime} минут` : 'Н/Д'}
+                  {selectedItem.runtime ? `${selectedItem.runtime} минут` : 'Н/Д'}
                 </span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Статус:</span>
                 <span className="movie-details__value">
-                  {movie.status === 'Released' ? 'Вышел' : movie.status || 'Н/Д'}
+                  {selectedItem.status === 'Released' ? 'Вышел' : selectedItem.status || 'Н/Д'}
                 </span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Язык оригинала:</span>
                 <span className="movie-details__value">
-                  {movie.original_language ? movie.original_language.toUpperCase() : 'Н/Д'}
+                  {selectedItem.original_language ? selectedItem.original_language.toUpperCase() : 'Н/Д'}
                 </span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Бюджет:</span>
                 <span className="movie-details__value">
-                  {movie.budget ? `$${movie.budget.toLocaleString()}` : 'Н/Д'}
+                  {selectedItem.budget ? `$${selectedItem.budget.toLocaleString()}` : 'Н/Д'}
                 </span>
               </div>
 
               <div className="movie-details__meta-item">
                 <span className="movie-details__label">Сборы:</span>
                 <span className="movie-details__value">
-                  {movie.revenue ? `$${movie.revenue.toLocaleString()}` : 'Н/Д'}
+                  {selectedItem.revenue ? `$${selectedItem.revenue.toLocaleString()}` : 'Н/Д'}
                 </span>
               </div>
 
-              {movie.genres && movie.genres.length > 0 && (
+              {selectedItem.genres && selectedItem.genres.length > 0 && (
                 <div className="movie-details__meta-item movie-details__meta-item--full">
                   <span className="movie-details__label">Жанры:</span>
                   <div className="movie-details__genres">
-                    {movie.genres.map(genre => (
+                    {selectedItem.genres.map(genre => (
                       <span key={genre.id} className="movie-details__genre">
                         {genre.name}
                       </span>
@@ -164,16 +154,16 @@ function MovieDetails() {
               )}
             </div>
 
-            {movie.overview && (
+            {selectedItem.overview && (
               <div className="movie-details__overview">
                 <h3>Описание</h3>
-                <p>{movie.overview}</p>
+                <p>{selectedItem.overview}</p>
               </div>
             )}
 
-            {movie.homepage && (
+            {selectedItem.homepage && (
               <a 
-                href={movie.homepage} 
+                href={selectedItem.homepage} 
                 target="_blank" 
                 rel="noreferrer"
                 className="movie-details__homepage-link"
@@ -184,11 +174,11 @@ function MovieDetails() {
           </div>
         </div>
 
-        {movie.production_companies && movie.production_companies.length > 0 && (
+        {selectedItem.production_companies && selectedItem.production_companies.length > 0 && (
           <div className="movie-details__companies">
             <h3>Производство</h3>
             <div className="movie-details__companies-list">
-              {movie.production_companies.map(company => (
+              {selectedItem.production_companies.map(company => (
                 <div key={company.id} className="movie-details__company">
                   {company.logo_path ? (
                     <img 

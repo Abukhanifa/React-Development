@@ -26,6 +26,12 @@
   max-width: 700px;
 }
 
+.movie-list__search-form {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+}
+
 .movie-list__search-input {
   flex: 1;
   padding: 14px 20px;
@@ -41,6 +47,22 @@
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15), 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.movie-list__search-button {
+  padding: 14px 24px;
+  background: #1d4ed8;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.movie-list__search-button:hover {
+  background: #2563eb;
   transform: translateY(-1px);
 }
 
@@ -80,6 +102,41 @@
   padding: 40px;
   background: #f9fafb;
   border-radius: 8px;
+}
+
+.movie-list__pagination {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.movie-list__pagination-button {
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.movie-list__pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.movie-list__pagination-button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.movie-list__pagination-info {
+  font-size: 16px;
+  color: #374151;
 }
 
 @media (max-width: 768px) {

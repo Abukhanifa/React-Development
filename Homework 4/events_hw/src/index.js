@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
+ 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,3 +23,20 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// Регистрация Service Worker для PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then((registration) => {
+        console.log(
+          '[PWA] Service Worker зарегистрирован успешно:',
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.error('[PWA] Ошибка регистрации Service Worker:', error);
+      });
+  });
+}
